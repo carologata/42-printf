@@ -1,17 +1,18 @@
 
 
 #ifndef FT_PRINTF_H
-#define FT_PRINTF_H
+# define FT_PRINTF_H
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdarg.h>
+# include <stdarg.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-void	ft_putstr(char *str);
-void	ft_int_to_char(int nb);
-void	ft_putnbr(int nb);
-void ft_unsigned_putnbr(unsigned int nb);
-void	ft_base10_to_base16(unsigned int nb, char *base, unsigned int count_base);
-int ft_printf(const char *format, ...);
+int	ft_putchar(char c);
+int	ft_putstr(char *str);
+int	ft_int_to_char(int nb);
+int	ft_putnbr(int nb);
+int	ft_unsigned_putnbr(unsigned int nb);
+void ft_base10_to_other_base(unsigned int nb, char type, int **count);
+int	ft_printf(const char *format, ...);
 
 #endif

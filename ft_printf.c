@@ -12,140 +12,127 @@
 
 #include "ft_printf.h"
 
-int ft_printf(const char *format, ...)
+void	find_data_type(va_list	*args, const char *format, int *i, int *count)
 {
-    int i;
-    va_list args;
-    char chr;
-    char *str;
-    unsigned int hex;
-    int integer;
-    unsigned int u;
-
-    int teste;
-
-    va_start(args, format);
-
-    i = 0;
-    while(format[i])
+	if (format[*i] == 'c')
+		*count += ft_putchar(va_arg(*args, int));
+	else if (format[*i] == 's')
+		*count += ft_putstr(va_arg(*args, char *));
+	else if (format[*i] == 'p')
+		ft_base10_to_other_base(va_arg(*args, unsigned int), format[*i], *count);
+	else if (format[*i] == 'd')
+		*count += ft_putnbr(va_arg(*args, int));
+	else if (format[*i] == 'i')
+		*count += ft_putnbr(va_arg(*args, int));
+	else if (format[*i] == 'u')
+		*count += ft_unsigned_putnbr(va_arg(*args, unsigned int));
+	else if (format[*i] == 'x')
+		ft_base10_to_other_base(va_arg(*args, unsigned int), format[*i], *count);
+	else if (format[*i] == 'X')
+		ft_base10_to_other_base(va_arg(*args, unsigned int), format[*i], *count);
+	else if (format[*i] == '%')
+		*count += ft_putchar('%');
+	else
     {
-        //char
-        if(format[i] == '%' && format[i + 1] == 'c')
-        {
-            chr = va_arg(args, int);
-            write(1, &chr, 1);
-            i = i + 2;
-        }
-        //string
-        else if(format[i] == '%' && format[i + 1] == 's')
-        {
-            str = va_arg(args, char *);
-            ft_putstr(str);
-            i = i + 2;
-        }
-        //pointer address
-        else if(format[i] == '%' && format[i + 1] == 'p')
-        {
-            hex = va_arg(args, unsigned int);
-            write(1, "0x", 2);
-            ft_base10_to_base16(hex, "0123456789abcdef", 16);
-            i = i + 2;
-        }
-        //decimal (base 10)
-        else if(format[i] == '%' && format[i + 1] == 'd')
-        {
-            integer = va_arg(args, int);
-            ft_putnbr(integer);
-            i = i + 2;
-        }
-        //int (data type in the C programming language)
-        else if(format[i] == '%' && format[i + 1] == 'i')
-        {
-            integer = va_arg(args, int);
-            ft_putnbr(integer);
-            i = i + 2;
-        }
-        //unsigned int
-        else if(format[i] == '%' && format[i + 1] == 'u')
-        {
-            u = va_arg(args, unsigned int);
-            ft_unsigned_putnbr(u);
-            i = i + 2;
-        }
-        //x hexadecimal lowercase
-        else if(format[i] == '%' && format[i + 1] == 'x')
-        {
-            hex = va_arg(args, unsigned int);
-            ft_base10_to_base16(hex, "0123456789abcdef", 16);
-            i = i + 2;
-        }
-        //X hexadecimal uppercase
-        else if(format[i] == '%' && format[i + 1] == 'X')
-        {
-            hex = va_arg(args, unsigned int);
-            ft_base10_to_base16(hex, "0123456789ABCDEF", 16);
-            i = i + 2;
-        }
-        //%
-        else if(format[i] == '%' && format[i + 1] == '%')
-        {
-            chr = '%';
-            write(1, &chr, 1);
-            i = i + 2;
-        }
-        else
-        {
-            write(1, &format[i], 1);
-            i++;
-        }  
+		*i -= 1;
+        *count += ft_putchar(format[*i]);
+        *i += 1;
     }
+}
 
-    teste = va_arg(args, int);
+int	ft_printf(const char *format, ...)
+{
+	int		i;
+	va_list	args;
+    int count;
 
-    va_end(args);
-    
-    return (0);
+    count = 0;
+    if(format == NULL)
+        return (-1);
+	va_start(args, format);
+	i = 0;
+	while (format[i])
+	{
+		if (format[i] == '%')
+		{
+			i++;
+            find_data_type(&args, format, &i, &count);
+		}
+		else
+        {
+			ft_putchar(format[i]);
+            count++;
+        }
+        i++;
+	}
+	va_end(args);
+	return (count);
 }
 
 #include <stdio.h>
 
-int main(void)
+int	main(void)
 {
-    char ch = 'A';
-    char *str;
-    int i;
-    i = -10;
-    float percentage;
-    int percentage2;
+	char ch = 'A';
+	char *str;
+	int i;
+	i = 456;
+	float percentage;
+	int percentage2;
+    int count;
 
-    str = malloc(6);
-    str[0] = 'C';
-    str[1] = 'a',
-    str[2] = 'r';
-    str[3] = 'o';
-    str[4] = 'l';
-    str[5] = '\0';
+    count = 0;
 
-    ft_printf("Oi, tudo bem %s? Sua sala é 7%c. Agora são %dh %ih.\n", str, ch, i, i);
-    printf("Oi, tudo bem %s? Sua sala é 7%c. Agora são %dh %ih.\n", str, ch, i, i);
+	str = malloc(6);
+	str[0] = 'C';
+	str[1] = 'a',
+	str[2] = 'r';
+	str[3] = 'o';
+	str[4] = 'l';
+	str[5] = '\0';
 
-    ft_printf("pointer %p\n", str);
-    printf("pointer %p\n", str);
+	// ft_printf("Oi, tudo bem %s? Sua sala é 7%c. Agora são %dh %ih.\n", str, ch, i, i);
+	// printf("Oi, tudo bem %s? Sua sala é 7%c. Agora são %dh %ih.\n", str, ch, i, i);
 
-    ft_printf("unsigned %u\n", i);  
-    printf("unsigned %u\n", i);  
+	// ft_printf("pointer: %p\n", str);
+	// printf("pointer: %p\n", str);
 
-    percentage = 1.58;
-    percentage2 = 5;
+	// ft_printf("unsigned: %u\n", i);
+	// printf("unsigned: %u\n", i);
 
-    // ft_printf("double %d", percentage);
-    // printf("double %d", percentage);
+	// percentage = 1.58;
+	// percentage2 = 5;
 
-    printf("percentage %f%%\n", percentage);
-    printf("percentage %lf%%\n", percentage);
-    printf("percentage %d%%\n", percentage2);
+	// ft_printf("double %d", percentage);
+	// printf("double %d", percentage);
 
-    printf("percentage 5%%\n");
+	// printf("percentage: %f%%\n", percentage);
+	// printf("percentage: %lf%%\n", percentage);
+	// printf("percentage: %d%%\n", percentage2);
 
-    ft_printf("percentage 5%%%d OI", i);
+	// printf("percentage: 5%%\n");
+
+	// ft_printf("percentage: 5%%%d\n", i);
+
+	// ft_printf("TESTE: %i\n", percentage);
+	// printf("TESTE: %i\n", percentage);
+
+	// ft_printf("TESTE: %%\n", percentage);
+	// printf("TESTE: %%\n", percentage);
+
+	// ft_printf("hex: %x\n", i);
+	// printf("hex: %x\n", i);
+
+    // ft_printf("f%jk\n", i);
+	// printf("f%jk\n", i);
+
+    count = ft_printf("pointer: %p\n", str);
+    printf("count = %d\n", count);
+
+    count = ft_printf("Oi, tudo bem %s? Sua sala é 7%c. Agora são %dh %ih.\n", str, ch, i, i);
+    printf("count = %d\n", count);
+
+    count = ft_printf("unsigned: %u\n", i);
+    printf("count = %d\n", count);
+
 }
