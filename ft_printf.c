@@ -15,90 +15,83 @@
 int ft_printf(const char *format, ...)
 {
     int i;
-    int j;
     va_list args;
-    int chr;
+    char chr;
     char *str;
-    unsigned int p;
-    double decimal;
+    unsigned int hex;
     int integer;
+    unsigned int u;
+
+    int teste;
 
     va_start(args, format);
 
     i = 0;
     while(format[i])
     {
-        //c
+        //char
         if(format[i] == '%' && format[i + 1] == 'c')
         {
             chr = va_arg(args, int);
             write(1, &chr, 1);
             i = i + 2;
         }
-        //s
+        //string
         else if(format[i] == '%' && format[i + 1] == 's')
         {
             str = va_arg(args, char *);
-            j = 0;
-            while(str[j] != '\0')
-            {
-                write(1, &str[j], 1);
-                j++;
-            }
+            ft_putstr(str);
             i = i + 2;
         }
-        //p
+        //pointer address
         else if(format[i] == '%' && format[i + 1] == 'p')
         {
-            p = (unsigned int) va_arg(args, int);
-            ft_base10_to_base16(p, "0123456789ABCDEF", 16);
+            hex = va_arg(args, unsigned int);
+            write(1, "0x", 2);
+            ft_base10_to_base16(hex, "0123456789abcdef", 16);
             i = i + 2;
         }
-        //d
+        //decimal (base 10)
         else if(format[i] == '%' && format[i + 1] == 'd')
         {
-            decimal = va_arg(args, double);
-            str = ft_itoa(decimal);
-            j = 0;
-            while(str[j] != '\0')
-            {
-                write(1, &str[j], 1);
-                j++;
-            }
+            integer = va_arg(args, int);
+            ft_putnbr(integer);
             i = i + 2;
         }
-        //i
+        //int (data type in the C programming language)
         else if(format[i] == '%' && format[i + 1] == 'i')
         {
             integer = va_arg(args, int);
-            str = ft_itoa(integer);
-            j = 0;
-            while(str[j] != '\0')
-            {
-                write(1, &str[j], 1);
-                j++;
-            }
+            ft_putnbr(integer);
             i = i + 2;
         }
-        //u
+        //unsigned int
         else if(format[i] == '%' && format[i + 1] == 'u')
         {
-
+            u = va_arg(args, unsigned int);
+            ft_unsigned_putnbr(u);
+            i = i + 2;
         }
-        //x
+        //x hexadecimal lowercase
         else if(format[i] == '%' && format[i + 1] == 'x')
         {
-
+            hex = va_arg(args, unsigned int);
+            ft_base10_to_base16(hex, "0123456789abcdef", 16);
+            i = i + 2;
         }
-        //X
+        //X hexadecimal uppercase
         else if(format[i] == '%' && format[i + 1] == 'X')
         {
-
+            hex = va_arg(args, unsigned int);
+            ft_base10_to_base16(hex, "0123456789ABCDEF", 16);
+            i = i + 2;
         }
         //%
         else if(format[i] == '%' && format[i + 1] == '%')
         {
-
+            chr = '%';
+            write(1, &chr, 1);
+            i = i + 2;
         }
         else
         {
@@ -106,6 +99,10 @@ int ft_printf(const char *format, ...)
             i++;
         }  
     }
+
+    teste = va_arg(args, int);
+
+    va_end(args);
     
     return (0);
 }
@@ -116,8 +113,10 @@ int main(void)
 {
     char ch = 'A';
     char *str;
-    double i;
-    i = 10.5;
+    int i;
+    i = -10;
+    float percentage;
+    int percentage2;
 
     str = malloc(6);
     str[0] = 'C';
@@ -127,8 +126,26 @@ int main(void)
     str[4] = 'l';
     str[5] = '\0';
 
-    ft_printf("Oi, tudo bem %s? Sua sala é 7%c. Agora são %dh.\n", str, ch, i);
+    ft_printf("Oi, tudo bem %s? Sua sala é 7%c. Agora são %dh %ih.\n", str, ch, i, i);
+    printf("Oi, tudo bem %s? Sua sala é 7%c. Agora são %dh %ih.\n", str, ch, i, i);
 
     ft_printf("pointer %p\n", str);
+    printf("pointer %p\n", str);
 
+    ft_printf("unsigned %u\n", i);  
+    printf("unsigned %u\n", i);  
+
+    percentage = 1.58;
+    percentage2 = 5;
+
+    // ft_printf("double %d", percentage);
+    // printf("double %d", percentage);
+
+    printf("percentage %f%%\n", percentage);
+    printf("percentage %lf%%\n", percentage);
+    printf("percentage %d%%\n", percentage2);
+
+    printf("percentage 5%%\n");
+
+    ft_printf("percentage 5%%%d OI", i);
 }

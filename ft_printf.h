@@ -7,10 +7,10 @@
 #include <unistd.h>
 #include <stdarg.h>
 
-long long	ft_count_divider(long nb);
-char	*ft_init_str(long nb, char *res, int count, int is_negative);
-int	ft_count_num(long nb);
-char	*ft_itoa(int n);
+void	ft_putstr(char *str);
+void	ft_int_to_char(int nb);
+void	ft_putnbr(int nb);
+void ft_unsigned_putnbr(unsigned int nb);
 void	ft_base10_to_base16(unsigned int nb, char *base, unsigned int count_base);
 int ft_printf(const char *format, ...);
 
