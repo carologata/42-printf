@@ -19,7 +19,7 @@ void	find_data_type(va_list	*args, const char *format, int *i, int *count)
 	else if (format[*i] == 's')
 		*count += ft_putstr(va_arg(*args, char *));
 	else if (format[*i] == 'p')
-		ft_base10_to_other_base(va_arg(*args, unsigned int), format[*i], *count);
+		*count += ft_base10_to_other_base(va_arg(*args, unsigned int), format[*i]);
 	else if (format[*i] == 'd')
 		*count += ft_putnbr(va_arg(*args, int));
 	else if (format[*i] == 'i')
@@ -27,9 +27,9 @@ void	find_data_type(va_list	*args, const char *format, int *i, int *count)
 	else if (format[*i] == 'u')
 		*count += ft_unsigned_putnbr(va_arg(*args, unsigned int));
 	else if (format[*i] == 'x')
-		ft_base10_to_other_base(va_arg(*args, unsigned int), format[*i], *count);
+		*count += ft_base10_to_other_base(va_arg(*args, unsigned int), format[*i]);
 	else if (format[*i] == 'X')
-		ft_base10_to_other_base(va_arg(*args, unsigned int), format[*i], *count);
+		*count += ft_base10_to_other_base(va_arg(*args, unsigned int), format[*i]);
 	else if (format[*i] == '%')
 		*count += ft_putchar('%');
 	else
@@ -91,48 +91,39 @@ int	main(void)
 	str[4] = 'l';
 	str[5] = '\0';
 
-	// ft_printf("Oi, tudo bem %s? Sua sala é 7%c. Agora são %dh %ih.\n", str, ch, i, i);
-	// printf("Oi, tudo bem %s? Sua sala é 7%c. Agora são %dh %ih.\n", str, ch, i, i);
 
-	// ft_printf("pointer: %p\n", str);
-	// printf("pointer: %p\n", str);
+	percentage = 1.58;
+	percentage2 = 5;
 
-	// ft_printf("unsigned: %u\n", i);
-	// printf("unsigned: %u\n", i);
+    count = ft_printf("p: %p\n", str);
+	printf("p: %p\n", str);
+	printf("count = %d\n\n", count);
+	//p: 0xa8c2a0n		12
 
-	// percentage = 1.58;
-	// percentage2 = 5;
-
-	// ft_printf("double %d", percentage);
-	// printf("double %d", percentage);
-
-	// printf("percentage: %f%%\n", percentage);
-	// printf("percentage: %lf%%\n", percentage);
-	// printf("percentage: %d%%\n", percentage2);
-
-	// printf("percentage: 5%%\n");
-
-	// ft_printf("percentage: 5%%%d\n", i);
-
-	// ft_printf("TESTE: %i\n", percentage);
-	// printf("TESTE: %i\n", percentage);
-
-	// ft_printf("TESTE: %%\n", percentage);
-	// printf("TESTE: %%\n", percentage);
-
-	// ft_printf("hex: %x\n", i);
-	// printf("hex: %x\n", i);
-
-    // ft_printf("f%jk\n", i);
-	// printf("f%jk\n", i);
-
-    count = ft_printf("pointer: %p\n", str);
-    printf("count = %d\n", count);
-
-    count = ft_printf("Oi, tudo bem %s? Sua sala é 7%c. Agora são %dh %ih.\n", str, ch, i, i);
-    printf("count = %d\n", count);
+    count = ft_printf("Oi, tudo bem %s? Sua sala e 7%c. Agora sao %dh %ih.\n", str, ch, i, i);
+	printf("Oi, tudo bem %s? Sua sala e 7%c. Agora sao %dh %ih.\n", str, ch, i, i);
+    printf("count = %d\n\n", count);
+	//Oi, tudo bem Carol? Sua sala e 7A. Agora sao 456h 456h.n		56
 
     count = ft_printf("unsigned: %u\n", i);
-    printf("count = %d\n", count);
+	printf("unsigned: %u\n", i);
+	printf("count = %d\n\n", count);
+	//unsigned: 456n		14
+
+	count = ft_printf("hex: %x\n", i);
+	ft_printf("hex: %x\n", i);
+	printf("count = %d\n\n", count);
+	//hex: 1c8n		9
+
+	count = ft_printf("percentage %%\n");
+	printf("percentage %%\n");
+	printf("count = %d\n\n", count);
+	//percentage %n		13
+
+	//compile with -w
+    count = ft_printf("f%jk\n", i);
+	printf("f%jk\n", i);
+	printf("count = %d\n\n", count);
+	//f%k	4
 
 }

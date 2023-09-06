@@ -12,7 +12,7 @@ int	ft_putstr(char *str);
 int	ft_int_to_char(int nb);
 int	ft_putnbr(int nb);
 int	ft_unsigned_putnbr(unsigned int nb);
-void ft_base10_to_other_base(unsigned int nb, char type, int **count);
+int ft_base10_to_other_base(unsigned int nb, const char type);
 int	ft_printf(const char *format, ...);
 
 #endif
