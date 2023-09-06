@@ -1,24 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cogata <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/06 16:04:30 by cogata            #+#    #+#             */
+/*   Updated: 2023/09/06 16:04:36 by cogata           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_putchar(char c)
-{
-	write(1, &c, 1);
-	return (1);
-}
-
-int	ft_putstr(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (*(str + i) != '\0')
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
-	return (i);
-}
 
 int	ft_int_to_char(int nb)
 {
@@ -42,7 +34,7 @@ int	ft_int_to_char(int nb)
 	return (count);
 }
 
-int	ft_putnbr(int nb)
+int	ft_put_and_count_nbr(int nb)
 {
 	int	count;
 
@@ -85,21 +77,35 @@ int	ft_unsigned_putnbr(unsigned int nb)
 	return (count);
 }
 
-int	ft_base10_to_other_base(unsigned int nb, char type)
+size_t	ft_strlen(const char *s)
 {
-	int				aux;
-	char			*base;
+	unsigned int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
+
+int	ft_base10_to_base16(unsigned long int nb, char type)
+{
 	unsigned int	count_base;
+	char			*base;
 	int				count;
 
-	base = "0123456789abcdef";
-	count_base = 16;
-	aux = 0;
+	if (type == 'X')
+		base = "0123456789ABCDEF";
+	else
+		base = "0123456789abcdef";
+	count_base = ft_strlen(base);
 	count = 0;
+	if (nb == 0 && type == 'p')
+		return (count += ft_put_and_count_str("(nil)"));
 	if (nb >= count_base)
 	{
-		aux = nb / count_base;
-		count += ft_base10_to_other_base(aux, type);
+		count += ft_base10_to_base16(nb / count_base, type);
 		count += write(1, &base[nb % count_base], 1);
 	}
 	else
