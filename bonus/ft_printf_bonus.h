@@ -20,10 +20,11 @@
 int		ft_put_and_count_char(char c);
 int		ft_put_and_count_str(char *s);
 int		ft_int_to_char(int nb);
-int		ft_put_and_count_nbr(int nb);
+int		ft_put_and_count_nbr(int nb, char flag);
 int		ft_unsigned_putnbr(unsigned int nb);
 size_t	ft_strlen(const char *s);
 int		ft_base10_to_base16(unsigned long int nb, char type);
+void	find_flag(va_list *args, const char *format, int *i, int *count);
 void	find_format(va_list *args, const char *format, int *i, int *count);
 int		ft_printf(const char *format, ...);
 

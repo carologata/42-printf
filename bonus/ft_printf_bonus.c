@@ -1,3 +1,5 @@
+#include "ft_printf_bonus.h"
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -10,7 +12,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 int	ft_printf(const char *format, ...)
 {
@@ -28,7 +30,7 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			find_format(&args, format, &i, &count);
+			find_flag(&args, format, &i, &count);
 		}
 		else
 			count += ft_put_and_count_char(format[i]);
@@ -64,6 +66,30 @@ int	ft_put_and_count_str(char *s)
 	return (count);
 }
 
+void find_flag(va_list *args, const char *format, int *i, int *count)
+{
+    if(format[*i] == '#')
+    {
+        *i += 1;
+        if(format[++*i] == 'x' || format[++*i] == 'X')
+            *count += ft_base10_to_base16(va_arg(*args, unsigned int), 'p');
+    }
+    else if(format[*i] == ' ')
+    {
+        *i += 1;
+        if(format[*i] == 'd' || format[*i] == 'i')
+            *count += ft_put_and_count_nbr(va_arg(*args, int), 's');
+    }
+    else if(format[*i] == '+')
+    {
+        *i += 1;
+        if(format[*i] == 'd' || format[*i] == 'i')
+            *count += ft_put_and_count_nbr(va_arg(*args, int), '+');
+    }
+    else
+        find_format(args, format, i, count);
+}
+
 void	find_format(va_list *args, const char *format, int *i, int *count)
 {
 	if (format[*i] == 'c')
@@ -74,9 +100,9 @@ void	find_format(va_list *args, const char *format, int *i, int *count)
 		*count += ft_base10_to_base16(va_arg(*args, unsigned long int),
 				format[*i]);
 	else if (format[*i] == 'd')
-		*count += ft_put_and_count_nbr(va_arg(*args, int));
+		*count += ft_put_and_count_nbr(va_arg(*args, int), 'n');
 	else if (format[*i] == 'i')
-		*count += ft_put_and_count_nbr(va_arg(*args, int));
+		*count += ft_put_and_count_nbr(va_arg(*args, int), 'n');
 	else if (format[*i] == 'u')
 		*count += ft_unsigned_putnbr(va_arg(*args, unsigned int));
 	else if (format[*i] == 'x')

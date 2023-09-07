@@ -6,67 +6,130 @@
 int	main(void)
 {
 	char ch = 'A';
-	char *str;
-	int i;
-	i = 456;
-	float percentage;
-	int percentage2;
+	char *str = "Caroline";
+	int i = 456;
+	int j = -5;
+	unsigned int u = 5;
     int count;
 
     count = 0;
 
-	str = malloc(6);
-	str[0] = 'C';
-	str[1] = 'a',
-	str[2] = 'r';
-	str[3] = 'o';
-	str[4] = 'l';
-	str[5] = '\0';
+	//Test 1: c, s, d, i
+	printf("Test1\n");
+	count = ft_printf("Oi, tudo bem %s? Sua sala e 7%c. Agora sao %dh %ih.\n", str, ch, i, i);
+	printf("ft_printf count = %d\n\n", count);
+	count = printf("Oi, tudo bem %s? Sua sala e 7%c. Agora sao %dh %ih.\n", str, ch, i, i);
+    printf("printf count = %d\n\n\n", count);
 
-
-	percentage = 1.58;
-	percentage2 = 5;
-
+	//Test 2: p
+	printf("Test2\n");
     count = ft_printf("p: %p\n", str);
-	printf("p: %p\n", str);
-	printf("count = %d\n\n", count);
-	//p: 0xa8c2a0n		12
+	printf("ft_printf count = %d\n\n", count);  
+	count = printf("p: %p\n", str);
+	printf("printf count = %d\n\n\n", count);  
 
-    count = ft_printf("Oi, tudo bem %s? Sua sala e 7%c. Agora sao %dh %ih.\n", str, ch, i, i);
-	printf("Oi, tudo bem %s? Sua sala e 7%c. Agora sao %dh %ih.\n", str, ch, i, i);
-    printf("count = %d\n\n", count);
-	//Oi, tudo bem Carol? Sua sala e 7A. Agora sao 456h 456h.n		56
+	//Test 3: u
+	printf("Test3\n");
+    count = ft_printf("unsigned: %u\n", u);
+	printf("ft_printf count = %d\n\n", count);
+	count = printf("unsigned: %u\n", u);
+	printf("printf count = %d\n\n\n", count);
 
-    count = ft_printf("unsigned: %u\n", i);
-	printf("unsigned: %u\n", i);
-	printf("count = %d\n\n", count);
-	//unsigned: 456n		14
+	//Test 4: u but sending negative int
+	printf("Test4\n");
+    count = ft_printf("unsigned: %u\n", j);
+	printf("ft_printf count = %d\n\n", count);
+	count = printf("unsigned: %u\n", j);
+	printf("printf count = %d\n\n\n", count);
 
+	//Test 5: x
+	printf("Test5\n");
 	count = ft_printf("hex: %x\n", i);
+	printf("ft_printf count = %d\n\n", count);
 	ft_printf("hex: %x\n", i);
-	printf("count = %d\n\n", count);
-	//hex: 1c8n		9
+	printf("printf count = %d\n\n\n", count);
 
+	//Test 6: X
+	printf("Test6\n");
+	count = ft_printf("hex: %X\n", i);
+	printf("ft_printf count = %d\n\n", count);
+	ft_printf("hex: %X\n", i);
+	printf("printf count = %d\n\n\n", count);
+
+	//Test 7: %%
+	printf("Test7\n");
 	count = ft_printf("percentage %%\n");
-	printf("percentage %%\n");
-	printf("count = %d\n\n", count);
-	//percentage %n		13
+	printf("ft_printf count = %d\n\n", count);
+	count = printf("percentage %%\n");
+	printf("printf count = %d\n\n\n", count);
 
+	//Test 8: %j - an invalid argument
 	//compile with -w
+	printf("Test8\n");
     count = ft_printf("f%jk\n", i);
-	printf("f%jk\n", i);
-	printf("count = %d\n\n", count);
-	//f%k	4
+	printf("ft_printf count = %d\n\n", count);
+	count = printf("f%jk\n", i);
+	printf("printf count = %d\n\n\n", count);
 
-	printf(" NULL %s NULL\n", NULL);
-	ft_printf(" NULL %s NULL\n\n", NULL);
+	//Test 9: s (null)
+	//(null)
+	//NULL is used to represent a null pointer,
+	//a pointer that doesn't point to a valid memory address.
+	//(void*)0)
+	printf("Test9\n");
+	count = ft_printf(" NULL %s NULL\n", NULL);
+	printf("ft_printf count = %d\n\n", count);
+	count = printf(" NULL %s NULL\n", NULL);
+	printf("printf count = %d\n\n\n", count);
 
-	printf(" %p %p \n", LONG_MIN, LONG_MAX);
-	ft_printf(" %p %p \n\n", LONG_MIN, LONG_MAX);
+	//Test 10: s (sending 0)
+	printf("Test10\n");
+	count = ft_printf(" NULL %s NULL\n", 0);
+	printf("ft_printf count = %d\n\n", count);
+	count = printf(" NULL %s NULL\n", 0);
+	printf("printf count = %d\n\n\n", count);
 	
-	printf(" %p %p \n", ULONG_MAX, -ULONG_MAX);
-	ft_printf(" %p %p \n\n", ULONG_MAX, -ULONG_MAX);
+	//Test 11: p (long address)
+	//(long) LONG_MAX: 2147483647  LONG_MIN: -2147483648 
+	printf("Test11\n");
+	count = ft_printf(" %p %p \n", LONG_MIN, LONG_MAX);
+	printf("ft_printf count = %d\n\n", count);
+	count = printf(" %p %p \n", LONG_MIN, LONG_MAX);
+	printf("printf count = %d\n\n\n", count);
+	
+	//Test 12: p (unsigned long address)
+	//(unsigned long) 4294967295
+	printf("Test12\n");
+	count = ft_printf(" %p %p \n", ULONG_MAX, -ULONG_MAX);
+	printf("ft_printf count = %d\n\n", count);
+	count = printf(" %p %p \n", ULONG_MAX, -ULONG_MAX);
+	printf("printf count = %d\n\n\n", count);
 
-	printf(" %p %p \n", 0, 0);
-	ft_printf(" %p %p \n\n", 0, 0);
+	//Test 13: p (nil) (sending 0)
+	//(nil) why not (null)????
+	//In Objective-C (another language), nil is a pointer to a non-existent object
+	//The use of (nil) to represent a null pointer is more common in languages like Objective-C, 
+	//where (nil) is a literal to represent a null reference to an object.
+	printf("Test13\n");
+	count = ft_printf(" %p %p \n", 0, 0);
+	printf("ft_printf count = %d\n\n", count);
+	count = printf(" %p %p \n", 0, 0);
+	printf("printf count = %d\n\n\n", count);
+
+	//Test 14: hex (sending 0)
+	printf("Test14\n");
+	count = ft_printf(" %x %x \n", 0, 0);
+	printf("ft_printf count = %d\n\n", count);
+	count = printf(" %x %x \n", 0, 0);
+	printf("printf count = %d\n\n\n", count);
+
+	//Test 15: with no arguments
+	//undefined behavior because printf will attempt to access arguments 
+	//that do not exist or do not match the format specifiers.
+	printf("Test15\n");
+	count = ft_printf("Oi %d Olá\n");
+	printf("ft_printf count = %d\n\n", count);
+	count = printf("Oi %d Olá\n");
+	printf("printf count = %d\n\n\n", count);
+
 }
