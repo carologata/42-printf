@@ -20,6 +20,12 @@ MANDATORY_SRC = ft_printf.c ft_printf_utils.c
 
 MANDATORY_OBJ = $(MANDATORY_SRC:%.c=%.o)
 
+BONUS_PATH = ./bonus/
+
+BONUS_SRC = ft_printf_bonus.c ft_printf_utils_bonus.c
+
+BONUS_OBJ = $(BONUS_SRC:%.c=%.o)
+
 all: $(NAME)
 
 $(NAME): $(MANDATORY_OBJ)
@@ -27,6 +33,8 @@ $(NAME): $(MANDATORY_OBJ)
 %.o: %.c ft_printf.h 
 	$(CC) $(CFLAGS) -c $< -o $@
 	ar rcs $(NAME) $@
+
+bonus: $(BONUS_OBJ)
 
 norm:
 	norminette -R CheckForbiddenSourceHeader $(MANDATORY_SRC) ft_printf.h
