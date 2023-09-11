@@ -30,7 +30,10 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			find_flag(&args, format, &i, &count);
+			if (format[i] == '#' || format[i] == ' ' || format[i] == '+')
+				find_flag(&args, format, &i, &count);
+			else
+				find_format(&args, format, &i, &count);
 		}
 		else
 			count += ft_put_and_count_char(format[i]);
@@ -68,7 +71,7 @@ int	ft_put_and_count_str(char *s)
 
 void	find_flag(va_list *args, const char *format, int *i, int *count)
 {
-	if (format[*i] == '#')
+	while (format[*i] == '#')
 	{
 		*i += 1;
 		if (format[*i] == 'x' || format[*i] == 'X')
@@ -76,7 +79,7 @@ void	find_flag(va_list *args, const char *format, int *i, int *count)
 									format[*i],
 									1);
 	}
-	else if (format[*i] == ' ')
+	while (format[*i] == ' ')
 	{
 		*i += 1;
 		if (format[*i] == 'd' || format[*i] == 'i')
@@ -84,14 +87,12 @@ void	find_flag(va_list *args, const char *format, int *i, int *count)
 		else if (format[*i] == 's')
 			*count += ft_put_and_count_str(va_arg(*args, char *));
 	}
-	else if (format[*i] == '+')
+	while (format[*i] == '+')
 	{
 		*i += 1;
 		if (format[*i] == 'd' || format[*i] == 'i')
 			*count += ft_put_and_count_nbr(va_arg(*args, int), '+');
 	}
-	else
-		find_format(args, format, i, count);
 }
 
 void	find_format(va_list *args, const char *format, int *i, int *count)

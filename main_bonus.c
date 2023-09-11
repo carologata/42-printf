@@ -25,18 +25,18 @@ int main(void)
 
 
     //Space
-	printf("1 % s\n", "");
+	/* printf("1 % s\n", "");
     ft_printf("1 % s\n", "");
     
-	count = printf("2 % 1s\n", "");
-    printf("count: %d\n", count);
-	count = ft_printf("2 % 1s\n", "");
-    printf("count: %d\n\n", count);
+	// count = printf("2 % 1s\n", "");
+    // printf("count: %d\n", count);
+	// count = ft_printf("2 % 1s\n", "");
+    // printf("count: %d\n\n", count);
 
-	count = printf("2 % 1s \n", "");
-    printf("count: %d\n", count);
-	count = ft_printf("2 % 1s \n", "");
-    printf("count: %d\n\n", count);
+	// count = printf("2 % 1s \n", "");
+    // printf("count: %d\n", count);
+	// count = ft_printf("2 % 1s \n", "");
+    // printf("count: %d\n\n", count);
 
 	printf("4 % s \n", "");
 	ft_printf("4 % s \n", "");
@@ -56,10 +56,10 @@ int main(void)
 	printf("9 % s % s % s % s % s \n", " - ", "", "4", "", "2 ");
 	ft_printf("9 % s % s % s % s % s \n", " - ", "", "4", "", "2 ");
 
-	count = printf("10 % 1s \n", "a");
-    printf("count: %d\n", count);
-	count = ft_printf("10 % 1s \n", "a");
-    printf("count: %d\n\n", count);
+	// count = printf("10 % 1s \n", "a");
+    // printf("count: %d\n", count);
+	// count = ft_printf("10 % 1s \n", "a");
+    // printf("count: %d\n\n", count);
 
     count = printf("11% s\n", "a");
     printf("count: %d\n", count);
@@ -77,13 +77,31 @@ int main(void)
 	count = printf("f%jk\n", 5);
 	printf("printf count = %d\n\n\n", count);
 
+
+    count = ft_printf("14 %s    \n", 0);
+    printf("ft_printf count = %d\n\n", count);
+    count = printf("14 %s   \n", 0);
+    printf("printf count = %d\n\n", count);
+
     count = ft_printf("14 %    d\n", 0);
     printf("ft_printf count = %d\n\n", count);
     count = printf("14 %    d\n", 0);
-    printf("ft_printf count = %d\n\n", count);
+    printf("printf count = %d\n\n", count);
 
-    count = ft_printf("14 %    +d\n", 0);
+    count = ft_printf("15 %    +d\n", 0);
     printf("ft_printf count = %d\n\n", count);
-    count = printf("14 %    +d\n", 0);
+    count = printf("15 %    +d\n", 0);
+    printf("printf count = %d\n\n", count); */
+
+    count = ft_printf("16 %#x\n", 0);
     printf("ft_printf count = %d\n\n", count);
+    count = printf("16 %#x\n", 0);
+    printf("printf count = %d\n\n", count); 
+
+    count = ft_printf("17 %#x\n", -4);
+    printf("ft_printf count = %d\n\n", count);
+    count = printf("17 %#x\n", -4);
+    printf("printf count = %d\n\n", count); 
+
+    printf("ld % s", "oi");
 }
