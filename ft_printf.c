@@ -19,8 +19,6 @@ int	ft_printf(const char *format, ...)
 	int		count;
 
 	count = 0;
-	if (format == NULL)
-		return (-1);
 	va_start(args, format);
 	i = 0;
 	while (format[i])
@@ -73,15 +71,11 @@ void	find_format(va_list *args, const char *format, int *i, int *count)
 	else if (format[*i] == 'p')
 		*count += ft_base10_to_base16(va_arg(*args, unsigned long int),
 				format[*i]);
-	else if (format[*i] == 'd')
-		*count += ft_put_and_count_nbr(va_arg(*args, int));
-	else if (format[*i] == 'i')
+	else if (format[*i] == 'd' || format[*i] == 'i')
 		*count += ft_put_and_count_nbr(va_arg(*args, int));
 	else if (format[*i] == 'u')
 		*count += ft_unsigned_putnbr(va_arg(*args, unsigned int));
-	else if (format[*i] == 'x')
-		*count += ft_base10_to_base16(va_arg(*args, unsigned int), format[*i]);
-	else if (format[*i] == 'X')
+	else if (format[*i] == 'x' || format[*i] == 'X')
 		*count += ft_base10_to_base16(va_arg(*args, unsigned int), format[*i]);
 	else if (format[*i] == '%')
 		*count += ft_put_and_count_char('%');

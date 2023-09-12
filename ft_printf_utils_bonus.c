@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   ft_printf_utils_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cogata <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/06 16:04:30 by cogata            #+#    #+#             */
-/*   Updated: 2023/09/06 16:04:36 by cogata           ###   ########.fr       */
+/*   Created: 2023/09/12 09:52:23 by cogata            #+#    #+#             */
+/*   Updated: 2023/09/12 09:52:24 by cogata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 int	ft_int_to_char(int nb)
 {
-	int		aux;
 	char	c;
 	int		count;
 
 	count = 0;
 	if (nb > 9)
 	{
-		aux = nb / 10;
-		count += ft_int_to_char(aux);
+		count += ft_int_to_char(nb / 10);
 		c = (nb % 10) + '0';
 		count += write(1, &c, 1);
 	}
@@ -86,9 +84,7 @@ size_t	ft_strlen(const char *s)
 
 	i = 0;
 	while (s[i] != '\0')
-	{
 		i++;
-	}
 	return (i);
 }
 

@@ -5,7 +5,7 @@
 
 int	main(void)
 {
-	char ch = 'A';
+/* 	char ch = 'A';
 	char *str = "Caroline";
 	int i = 456;
 	int j = -5;
@@ -72,6 +72,7 @@ int	main(void)
 	printf("printf count = %d\n\n\n", count);
 
 	//Test 9: s (null)
+	//compile with -w
 	//(null)
 	//NULL is used to represent a null pointer,
 	//a pointer that doesn't point to a valid memory address.
@@ -83,6 +84,7 @@ int	main(void)
 	printf("printf count = %d\n\n\n", count);
 
 	//Test 10: s (sending 0)
+	//compile with -w
 	printf("Test10\n");
 	count = ft_printf(" NULL %s NULL\n", 0);
 	printf("ft_printf count = %d\n\n", count);
@@ -90,6 +92,7 @@ int	main(void)
 	printf("printf count = %d\n\n\n", count);
 	
 	//Test 11: p (long address)
+	//compile with -w
 	//(long) LONG_MAX: 2147483647  LONG_MIN: -2147483648 
 	printf("Test11\n");
 	count = ft_printf(" %p %p \n", LONG_MIN, LONG_MAX);
@@ -98,6 +101,7 @@ int	main(void)
 	printf("printf count = %d\n\n\n", count);
 	
 	//Test 12: p (unsigned long address)
+	//compile with -w
 	//(unsigned long) 4294967295
 	printf("Test12\n");
 	count = ft_printf(" %p %p \n", ULONG_MAX, -ULONG_MAX);
@@ -106,6 +110,7 @@ int	main(void)
 	printf("printf count = %d\n\n\n", count);
 
 	//Test 13: p (nil) (sending 0)
+	//compile with -w
 	//(nil) why not (null)????
 	//In Objective-C (another language), nil is a pointer to a non-existent object
 	//The use of (nil) to represent a null pointer is more common in languages like Objective-C, 
@@ -124,6 +129,7 @@ int	main(void)
 	printf("printf count = %d\n\n\n", count);
 
 	//Test 15: with no arguments
+	//compile with -w
 	//undefined behavior because printf will attempt to access arguments 
 	//that do not exist or do not match the format specifiers.
 	printf("Test15\n");
@@ -131,5 +137,13 @@ int	main(void)
 	printf("ft_printf count = %d\n\n", count);
 	count = printf("Oi %d Olá\n");
 	printf("printf count = %d\n\n\n", count);
+
+	//Test 16
+	//undefined behavior, it can lead to seg fault, crash, depending the compiler
+	printf("Test16\n");
+	count = printf(NULL);
+	printf("printf count = %d\n\n", count);
+	count = ft_printf(NULL);
+	printf("ft_printf count = %d\n\n\n", count); */
 
 }

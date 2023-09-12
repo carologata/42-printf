@@ -35,7 +35,7 @@ $(NAME): $(MANDATORY_OBJ)
 bonus: $(BONUS_OBJ)
 
 norm:
-	norminette -R CheckForbiddenSourceHeader $(MANDATORY_SRC) ft_printf.h
+	norminette -R CheckForbiddenSourceHeader $(MANDATORY_SRC) $(BONUS_SRC) ft_printf.h ft_printf_bonus.h
 
 clean: 
 	rm -f $(MANDATORY_OBJ) $(BONUS_OBJ)

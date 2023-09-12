@@ -1,14 +1,12 @@
-#include "ft_printf_bonus.h"
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.c                                           :+:      :+:    :+:   */
+/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cogata <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 11:26:59 by cogata            #+#    #+#             */
-/*   Updated: 2023/09/04 11:27:00 by cogata           ###   ########.fr       */
+/*   Created: 2023/09/12 09:50:33 by cogata            #+#    #+#             */
+/*   Updated: 2023/09/12 09:50:37 by cogata           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +19,6 @@ int	ft_printf(const char *format, ...)
 	int		count;
 
 	count = 0;
-	if (format == NULL)
-		return (-1);
 	va_start(args, format);
 	i = 0;
 	while (format[i])
@@ -75,9 +71,7 @@ void	find_flag(va_list *args, const char *format, int *i, int *count)
 	{
 		*i += 1;
 		if (format[*i] == 'x' || format[*i] == 'X')
-			*count += ft_to_base16(va_arg(*args, unsigned int),
-									format[*i],
-									1);
+			*count += ft_to_base16(va_arg(*args, unsigned int), format[*i], 1);
 	}
 	while (format[*i] == ' ')
 	{
@@ -102,12 +96,8 @@ void	find_format(va_list *args, const char *format, int *i, int *count)
 	else if (format[*i] == 's')
 		*count += ft_put_and_count_str(va_arg(*args, char *));
 	else if (format[*i] == 'p')
-		*count += ft_to_base16(va_arg(*args, unsigned long),
-								format[*i],
-								0);
-	else if (format[*i] == 'd')
-		*count += ft_put_and_count_nbr(va_arg(*args, int), 'n');
-	else if (format[*i] == 'i')
+		*count += ft_to_base16(va_arg(*args, unsigned long), format[*i], 0);
+	else if (format[*i] == 'd' || format[*i] == 'i')
 		*count += ft_put_and_count_nbr(va_arg(*args, int), 'n');
 	else if (format[*i] == 'u')
 		*count += ft_unsigned_putnbr(va_arg(*args, unsigned int));
