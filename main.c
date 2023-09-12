@@ -5,7 +5,7 @@
 
 int	main(void)
 {
-/* 	char ch = 'A';
+	char ch = 'A';
 	char *str = "Caroline";
 	int i = 456;
 	int j = -5;
@@ -144,6 +144,13 @@ int	main(void)
 	count = printf(NULL);
 	printf("printf count = %d\n\n", count);
 	count = ft_printf(NULL);
-	printf("ft_printf count = %d\n\n\n", count); */
+	printf("ft_printf count = %d\n\n\n", count);
+
+	//Test 17
+	printf("Test17\n");
+	count = printf("%s\n", "");
+	printf("printf count = %d\n\n", count);
+	count = ft_printf("%s\n", "");
+	printf("ft_printf count = %d\n\n\n", count);
 
 }
