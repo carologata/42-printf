@@ -14,5 +14,5 @@ The objective of this project is to create our own printf that prints the format
 + %i: integer in base 10
 + %u: unsigned decimal (base 10) number
 + %x: number in hexadecimal (base 16) lowercase format
-+ %X: number in hexadecimal (base 16) uppercase format.
-+ %%: percent sign.
++ %X: number in hexadecimal (base 16) uppercase format
++ %%: percent sign
